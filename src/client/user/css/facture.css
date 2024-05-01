@@ -1,0 +1,76 @@
+#facture-body{
+    position: relative;
+    top: 0;
+    left: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+}
+#facture-header{
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    align-items: center;
+    margin-top: 10px;
+    /* border: 1px solid orange; */
+}
+#facture-detail{
+    width: 90%;
+    height: fit-content;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    margin-top: 70px;
+    align-items: start;
+    justify-content: start;
+    /* border: 1px solid orange; */
+}
+#facture-detail div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#facture-tableau{
+    width: 85%;
+    height: 100%;
+    background-color: white;
+    display: grid;
+    /* grid-template-rows: 30% 70%; */
+    align-items: center;
+    margin: auto;
+    margin-top: 50px;
+    /* border: 1px solid orange; */
+}
+#facture-tableau table{
+    border-collapse: collapse;
+    text-align: center;
+}
+#facture-tableau table th{
+    background-color: rgba(163, 160, 160, 0.466);
+    padding: 10px;
+}
+#facture-tableau table tr{
+    /* background-color: rgba(163, 160, 160, 0.164); */
+    border-bottom: 1px solid rgba(163, 160, 160, 0.466);
+}
+#facture-tableau table td{
+    padding: 10px;
+}
+#facture-footer{
+    width: fit-content;
+    background-color: white;
+    display: flex;
+    margin-left: auto;
+    margin-top: 30px;
+    align-items: center;
+    /* border: 1px solid orange; */
+}
+
+
+
+

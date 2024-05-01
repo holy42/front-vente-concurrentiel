@@ -1,0 +1,143 @@
+input:focus{
+    outline: none;
+}
+#back {
+    position :relative;
+    width: 100vw; 
+    height: 100vh;
+    background: rgb(250, 248, 248);
+    top: 0; 
+    left: 0;
+}
+#container-sus{
+    width: 60vw;
+    position: absolute;
+    background: white;
+    top: 50%;
+    left: 50%;
+    height: 70vh;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    display: grid;
+    grid-template-columns: 45% 55%;
+    align-items: center;
+    /* justify-content: center; */
+    border-radius: 10px;
+}
+#leftSus {
+    width: 100%;
+    height: 100%;
+    /* background-image: linear-gradient( 345deg, #ffd500ee, #ff8000ee, #ff394aee, #ed2644ee); */
+    background-color: #ff80001f;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    /* padding: 15vh 50px; */
+}
+/* #leftSus p:first-of-type{
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 800;
+}
+#leftSus p:nth-child(2){
+    font-size: small;
+    color: white;
+    font-weight: 300;
+    margin-top: 2rem;
+}
+#leftSus button{
+    border: 2px solid white;
+    margin-top: 50px;
+    width: fit-content;
+    background: transparent;
+    padding: 0.10rem 4rem;
+    border-radius: 999px;
+}
+#leftSus button p{
+    font-size: 0.75rem !important;
+    color: white;
+}
+#leftSus button:hover{
+    border: 2px solid #ffffff;
+    background: white;
+}
+#leftSus button:hover p{ 
+    color: #1cad71;
+}*/
+#rightSus{
+    width: 100%;
+    height: 100%;
+    border-left: 2px solid rgb(232 232 232) !important;
+    /* padding: 10vh 5vw; */
+    text-align: center;
+    background: white;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: relative;
+}
+#rightSus #p{
+    color: #ff7f00;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+#input{
+    width: fit-content;
+    background: #ffffff;
+    border: 2px solid rgb(232 232 232);
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+#input input{
+    margin-left: 0.25rem;
+    border: none;
+    background: transparent;
+    color: gray;
+    width: 20vw;
+    height: 35px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#input input::placeholder{
+    color: gray;
+    font-weight: 600;
+    margin-left: 5px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+/* #rightSus button{
+    border: 2px solid #1cad71;
+    margin-top: 20px;
+    width: fit-content;
+    background: #1cad71;
+    padding: 0.10rem 4rem;
+    border-radius: 999px;
+    font-size: 0.75rem !important;
+    color: white !important;
+
+}
+#rightSus button p{
+    font-weight: 800;
+    font-size: 0.75rem !important;
+    color: white;
+}
+#rightSus button:hover{
+    border: 2px solid #1cad71;
+    background: #ffffff;
+}
+#rightSus button:hover p{ 
+    color: #1cad71;
+}*/
+#link{
+    text-decoration: none;
+    color: white;
+}
+#link:hover{
+    color: white;
+}

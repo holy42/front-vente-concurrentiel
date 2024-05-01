@@ -1,0 +1,220 @@
+::-webkit-scrollbar {
+    width: 0.5vw;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 1vh;
+}
+
+::-webkit-scrollbar-track {
+    background: #83838300;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(146, 146, 146, 0.5);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    background: rgba(146, 146, 146, 0.5);
+    border-radius: 999px;
+    height: 1vh;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #706e6e;
+}
+#body-box {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin-top: -100vh;
+    z-index: 5;
+    background-color: #706e6e15;
+}
+#box-container {
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 63vw !important;
+    height: 87vh !important;
+    display: grid;
+    grid-template-rows: 65% 35%;
+    border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: 2px solid rgb(224, 224, 224);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+#box-produit {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    /* border: 1px solid green; */
+}
+#box-img{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+#box-img::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    height: 90%;
+    width: 2px;
+    background-color: rgb(207, 207, 207);
+    transform: translateY(-50%);
+}
+#img-pro{
+    /* border: 1px solid blue; */
+    width: 90%;
+    height: 90%;
+    margin: auto;
+}
+#img-pro img{
+    /* border: 1px solid blue; */
+    width: 100%;
+    height: 100%;
+    /* box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.1), 0 3px 5px -2px rgb(0 0 0 / 0.1); */
+}
+#box-detail{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 15% 20% 10% 10% 15% 20%;
+    gap: 2%;
+}
+#box-nom{
+    /* border: 1px solid green; */
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: end;
+    color: #2c2a2a;
+    font-size: 1.75rem;
+    font-weight: 700;
+    position: relative;
+}
+#box-descri{
+    /* border: 1px solid green; */
+    width: 96%;
+    height: 100%;
+    display: grid;
+    color: rgb(94, 92, 92);
+    font-size: 1rem;
+}
+#box-prix{
+    /* border: 1px solid green; */
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    /* color: #2e2e2e;
+    font-size: 1.5rem;
+    font-weight: 600; */
+}
+#box-review{
+    /* border: 1px solid green; */
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 27% 83%;
+    align-items: center;
+}
+#box-qte{
+    /* border: 1px solid green; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+}
+#box-btn{
+    /* border: 1px solid green; */
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+}
+#box-related {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 10% 90%;
+    /* justify-content: start; */
+    align-items: center;
+    /* border: 1px solid #f89a0c; */
+}
+#titre-related {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    /* border: 1px solid green; */
+}
+#img-related {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 10% 76% 10%;
+    gap: 2%;
+    align-items: center;
+    /* justify-content: start; */
+    align-items: center;
+    /* border: 1px solid green; */
+}
+#img-group {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(10vw, 1fr));
+    grid-auto-rows: 20vh;
+    gap: 20px; */
+    align-items: center;
+    /* justify-content: start; */
+    /* border: 1px solid green; */
+
+}
+
+#mini-card{
+    width: 24%;
+    height: 80%;
+    border: 2px solid rgb(232, 232, 232);
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: grid;
+    grid-template-rows: 70% 15% 15%;
+    align-items: center;
+    box-shadow: 0 5px 10px -2px rgb(0 0 0 / 0.1), 0 3px 5px -2px rgb(0 0 0 / 0.1);
+    /* border: 1px solid green; */
+
+}
+#mini-card img{
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* border: 1px solid green; */
+
+}
+
+
+
+
+

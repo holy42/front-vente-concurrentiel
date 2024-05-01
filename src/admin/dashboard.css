@@ -1,0 +1,126 @@
+#admin-container-dash{
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-rows: 15% 85%;
+    align-items: center;
+    overflow-x: hidden;
+}
+#admin-count{
+    width: 80%;
+    height: 100%;
+    display: grid;
+    /* grid-template-columns: 70% 30%; */
+    align-items: center;
+    margin-left: 2%;
+    /* border: 1px solid indigo; */
+}
+#top-btn{
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid indigo; */
+    display: grid;
+    grid-template-columns: 23% 23% 23% 23%;
+    gap: 2%;
+    align-items: center;
+    margin-left: 1%;
+    margin-top: 1%;
+}
+#button-menu{
+    height: 80%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 30% 50%;
+    align-items: center;
+    border-radius: 5px;
+    justify-content: flex-start;
+    text-align: right;
+}
+.activatedClient{
+    border: 2px solid #ffd50027 !important;
+    background-color: #ffd50027 !important;
+}
+.activatedClient:hover{
+    background-color: #ffd5004f !important;
+}
+.activatedFournisseur{
+    border: 2px solid #ed264427 !important;
+    background-color: #ed264427 !important;
+}
+.activatedFournisseur:hover{
+    background-color: #ed26444f !important;
+}
+.activatedProduit{
+    border: 2px solid #ff800027 !important;
+    background-color: #ff800027 !important;
+}
+.activatedProduit:hover{
+    background-color: #ff80004f !important;
+}
+.activatedDashboard{
+    border: 2px solid #8311ed27 !important;
+    background-color: #8311ed27 !important;
+}
+.activatedDashboard:hover{
+    background-color: #8311ed4f !important;
+}
+#admin-bottom{
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    align-items: center;
+    /* border: 1px solid indigo; */
+}
+#admin-graphe{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    /* background-color: white; */
+    align-items: center;
+    grid-template-rows: 50% 50%;
+    /* border: 1px solid indigo; */
+}
+#admin-liste{
+    width: 90%;
+    height: 93%;
+    margin: auto;
+    display: grid;
+    grid-template-rows: 90% 10%;
+    align-items: center;
+    /* border: 1px solid indigo; */
+}
+#liste-pro{
+    width: 100%;
+    /* height: 90%; */
+    /* margin: auto; */
+    margin-bottom: auto;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+#liste-pro tbody td{
+    padding: 5px;
+    border-bottom: 2px solid rgb(232 232 232);
+    width: 25%;
+}
+#liste-pro thead th{
+    padding: 10px;
+    width: 25%;
+    border-bottom: 1px solid rgb(232 232 232);
+    background-color: rgba(128, 128, 128, 0.178);
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,208 @@
+::-webkit-scrollbar {
+    width: 0.5vw;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 1vh;
+}
+
+::-webkit-scrollbar-track {
+    background: #83838300;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(146, 146, 146, 0.5);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    background: rgba(146, 146, 146, 0.5);
+    border-radius: 999px;
+    height: 1vh;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #706e6e;
+}
+#profil-body {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: grid;
+    grid-template-columns: 18% 82%;
+    color: rgb(59, 59, 59);
+    background-color: rgb(245 245 245);
+    /* overflow: hidden; */
+    /* border: 1px solid red */
+}
+#profil-left{
+    width: 100%;
+    height: 100%;
+    border-right: 2px solid rgb(238, 238, 238);
+    background-color: white;
+    display: grid;
+    grid-template-rows: 10% 80% 10%;
+    /* padding: 0 10px; */
+}
+#profil-logo{
+    height: 100%;
+    width: 100%;
+    display: grid;
+    /* justify-content: center; */
+    /* margin: auto; */
+    border-right: 2px solid rgb(238, 238, 238);
+}
+#logo-container{
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    border-bottom: 2px solid rgb(238, 238, 238);
+    display: grid;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+}
+#profil-logo img:first-child{
+    height: 80%;
+    width: 80%;
+    margin: auto;
+}
+#profil-logo img:last-child{
+    height: 50%;
+    width: 60%;
+}
+#profil-nav{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    /* align-items: center; */
+}
+#nav-container{
+    width: 100%;
+    height: fit-content;
+    margin-top: 40%;
+}
+#nav-button{
+    width: 95%;
+    /* border-top: 2px solid #ff80008f;     */
+    color: rgb(38 38 38);
+    /* background-clip: text; */
+    padding: 13px 0px;
+    background-color: transparent;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+.active{
+    color: #ff80008f !important;
+    background-color: rgb(245 245 245) !important;
+}
+#link{
+    text-decoration: none;
+    /* color: white; */
+}
+#profil-logout{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    align-items: start;
+}
+#nav-button:hover{
+    /* color: white; */
+    background-color: #ff80008f;
+    border-color: transparent;
+    color: white;
+}
+#profil-right{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 10% 90%;
+    /* border: 1px solid indigo; */
+}
+#compte-header{ 
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-bottom: 2px solid rgb(238, 238, 238);
+    /* border-left: 2px solid rgb(238, 238, 238); */
+    box-shadow: 0 5px 8px -3px rgb(0 0 0 / 0.1), 0 2px 3px -3px rgb(0 0 0 / 0.1);
+
+}
+#compte-container{
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    /* border: 1px solid indigo; */
+    display: grid;
+    grid-template-columns: 25% 75%;
+}
+#compte-img{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 40% 60%;
+    justify-content: center;
+    align-items: start;
+    /* border: 1px solid indigo; */
+}
+#compte-form{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 60% 40%;
+    align-items: center;
+    /* border: 1px solid indigo; */
+}
+#form-container{
+    width: 60%;
+    height: 100%;
+    display: grid;
+    align-items: center;
+    grid-template-rows: 19% 19% 19% 19% 19%;
+    gap: 2%;
+    margin-left: 10%;
+    margin-top: 10%;
+    /* border: 1px solid indigo; */
+}
+#compte-input{
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid; */
+    display: grid;
+    align-items: center;
+}
+#form-btn{
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    margin-top: auto;
+    display: grid;
+    align-items: end;
+    grid-template-columns: 40% 40%;
+    gap: 10%;
+    /* border: 1px solid indigo; */
+}
+#profil-logout #nav-button{
+    padding: 10px 0px !important;
+    width: 95% !important;
+    margin: auto !important;
+    border-radius: 10px !important;
+}
+#profil-logout #nav-button:hover{
+    /* color: white !important; */
+    color: #ed1111 !important;
+    background-color: #706e6e57;
+}
+
+
+
+
+
