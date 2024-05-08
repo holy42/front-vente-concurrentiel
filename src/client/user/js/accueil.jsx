@@ -71,12 +71,13 @@ function CheckFilter({ value, change, checked }) {
 }
 
 function CardProduit({ show, addData, data }) {
+    const src = `data:image/png;base64,${data.imgPro}`
 
     return (
         <>
             <div id='card-pro' >
                 <div id='card-img' onClick={show}>
-                    <img src={V17} alt="voiture" />
+                    <img src={src} alt="voiture" />
                     {/* <Checkbox size='small' onChange={change} sx={{ color: "gray", position: 'absolute', top: 0, right: 0, '&.Mui-checked': { color: "#ff7f00" }, }} /> */}
                 </div>
                 <div id='card-nom' onClick={show}>
@@ -102,22 +103,22 @@ function CardProduit({ show, addData, data }) {
     )
 }
 
-const data = [
-    { idPro: 1, idFr: 1, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1000000, qte: 4, categorie: 'voiture', nbClic: 2, imgPro: '', avis: 20, vote: 3.5, date: '2024-01-11' },
-    { idPro: 2, idFr: 2, design: 'Audi V08-A51', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1100000, qte: 4, categorie: 'velo', nbClic: 2, imgPro: '', avis: 20, vote: 4.5, date: '2024-02-11' },
-    { idPro: 3, idFr: 3, design: 'Audi V08-A55', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1200000, qte: 4, categorie: 'table', nbClic: 2, imgPro: '', avis: 20, vote: 4, date: '2024-03-11' },
-    { idPro: 4, idFr: 4, design: 'Audi V08-A53', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1300000, qte: 4, categorie: 'vêtement', nbClic: 2, imgPro: '', avis: 20, vote: 4.5, date: '2024-04-11' },
-    { idPro: 5, idFr: 5, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1400000, qte: 4, categorie: 'voiture', nbClic: 2, imgPro: '', avis: 20, vote: 3, date: '2024-05-11' },
-    { idPro: 6, idFr: 6, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1500000, qte: 4, categorie: 'velo', nbClic: 2, imgPro: '', avis: 20, vote: 3.5, date: '2024-06-11' },
-    { idPro: 7, idFr: 7, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1600000, qte: 4, categorie: 'ordinateur', nbClic: 2, imgPro: '', avis: 20, vote: 4.5, date: '2024-07-11' },
-    { idPro: 8, idFr: 8, design: 'Audi V08-A51', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1700000, qte: 4, categorie: 'voiture', nbClic: 2, imgPro: '', avis: 20, vote: 2.5, date: '2024-08-11' },
-    { idPro: 9, idFr: 9, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1800000, qte: 4, categorie: 'table', nbClic: 2, imgPro: '', avis: 20, vote: 3, date: '2024-09-11' },
-    { idPro: 10, idFr: 10, design: 'Audi V08-A51', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1900000, qte: 4, categorie: 'vêtement', nbClic: 2, imgPro: '', avis: 20, vote: 4, date: '2024-10-11' },
-    { idPro: 11, idFr: 11, design: 'Audi V08-A60', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 11000000, qte: 4, categorie: 'voiture', nbClic: 2, imgPro: '', avis: 20, vote: 4.5, date: '2024-11-11' },
-]
+// const data = [
+//     { idPro: 1, idFr: 1, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1000000, qte: 4, categorie: 'voiture', nbClic: 2, imgPro: '', avis: 20, vote: 3.5, date: '2024-01-11' },
+//     { idPro: 2, idFr: 2, design: 'Audi V08-A51', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1100000, qte: 4, categorie: 'velo', nbClic: 2, imgPro: '', avis: 20, vote: 4.5, date: '2024-02-11' },
+//     { idPro: 3, idFr: 3, design: 'Audi V08-A55', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1200000, qte: 4, categorie: 'table', nbClic: 2, imgPro: '', avis: 20, vote: 4, date: '2024-03-11' },
+//     { idPro: 4, idFr: 4, design: 'Audi V08-A53', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1300000, qte: 4, categorie: 'vêtement', nbClic: 2, imgPro: '', avis: 20, vote: 4.5, date: '2024-04-11' },
+//     { idPro: 5, idFr: 5, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1400000, qte: 4, categorie: 'voiture', nbClic: 2, imgPro: '', avis: 20, vote: 3, date: '2024-05-11' },
+//     { idPro: 6, idFr: 6, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1500000, qte: 4, categorie: 'velo', nbClic: 2, imgPro: '', avis: 20, vote: 3.5, date: '2024-06-11' },
+//     { idPro: 7, idFr: 7, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1600000, qte: 4, categorie: 'ordinateur', nbClic: 2, imgPro: '', avis: 20, vote: 4.5, date: '2024-07-11' },
+//     { idPro: 8, idFr: 8, design: 'Audi V08-A51', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1700000, qte: 4, categorie: 'voiture', nbClic: 2, imgPro: '', avis: 20, vote: 2.5, date: '2024-08-11' },
+//     { idPro: 9, idFr: 9, design: 'Audi V08-A50', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1800000, qte: 4, categorie: 'table', nbClic: 2, imgPro: '', avis: 20, vote: 3, date: '2024-09-11' },
+//     { idPro: 10, idFr: 10, design: 'Audi V08-A51', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 1900000, qte: 4, categorie: 'vêtement', nbClic: 2, imgPro: '', avis: 20, vote: 4, date: '2024-10-11' },
+//     { idPro: 11, idFr: 11, design: 'Audi V08-A60', descri: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit', prix: 11000000, qte: 4, categorie: 'voiture', nbClic: 2, imgPro: '', avis: 20, vote: 4.5, date: '2024-11-11' },
+// ]
 
 export default function Accueil({ }) {
-    // const [data, setData] = useState({})  // ---------- A décommenter
+    const [data, setData] = useState([])  // ---------- A décommenter
     const [anchorElUser, setAnchorElUser] = useState(null)
     const [tri, setTri] = useState('')
     const [boxPro, setBoxPro] = useState(false)
@@ -138,22 +139,23 @@ export default function Accueil({ }) {
 
     const location = useLocation()
     const idCli = location.state?.id || 0
-    // useEffect(() => {
-    //     axios.get(url + 'produits').then(function (response) {
-    //          setData(response.data)
-    //     }, function (error) {
-    //         console.log(error)
-    //     })
-    // }, [data])
+    useEffect(() => {
+        axios.get(url + 'produit/produits').then(function (response) {
+             setData(response.data)
+        }, function (error) {
+            console.log(error)
+        })
+    }, [])
+    // console.log(data)
 
-    const produitsDatas = Object.entries(data).map(([key, value]) => ({ index: key, ...value, }))
+    // const data = Object.entries(data).map(([key, value]) => ({ index: key, ...value, }))
 
     useEffect(() => {
-        setProduits(produitsDatas)
+        setProduits(data)
     }, [data])
 
     useEffect(() => {
-        const prixP = produitsDatas.map(item => item.prix)
+        const prixP = data.map(item => item.prix)
         let p = { min: Math.min(...prixP), max: Math.max(...prixP) }
         setPrix(p)
     }, [])
@@ -203,7 +205,7 @@ export default function Accueil({ }) {
         handleDateChange(formatDate(object.debut), formatDate(object.fin))
     }
     const handleDateChange = (debut, fin) => {
-        const newData = produitsDatas.filter((item) => {
+        const newData = data.filter((item) => {
             return item.date >= debut && item.date <= fin
         })
         setProduits(newData)
@@ -220,12 +222,12 @@ export default function Accueil({ }) {
     const handlePrix = (e) => {
         let object = prix
         // let r = Math.round(parseInt(e.target.value, 10) / 1000) * 1000
-        object[e.target.name] = parseInt(e.target.value, 10) + 1000
+        object[e.target.name] = parseInt(e.target.value, 10)
         setPrix(object)
         handlePrixChange(object)
     }
     const handlePrixChange = (obj) => {
-        const newData = produitsDatas.filter((item) => {
+        const newData = data.filter((item) => {
             return item.prix >= obj.min && item.prix <= obj.max
         })
         setProduits(newData)
@@ -235,9 +237,9 @@ export default function Accueil({ }) {
     // ------- Filtre catégorie --------
     const handleCategorieChange = (select) => {
         if (select.length === 0) {
-            setProduits(produitsDatas)
+            setProduits(data)
         } else {
-            const newData = produitsDatas.filter((item) => select.includes(item.categorie))
+            const newData = data.filter((item) => select.includes(item.categorie))
             setProduits(newData)
         }
     }
@@ -270,7 +272,7 @@ export default function Accueil({ }) {
                 setAlertDoubleData(false)
             }, 5000)
         } else {
-            const data = produitsDatas.find(p => p.idPro === id)
+            const data = produits.find(p => p.idPro === id)
             const newData = { ...data }
             newData['count'] = nb
             // console.log(newData)
@@ -297,15 +299,15 @@ export default function Accueil({ }) {
     const handleRecherche = () => {
         const search = document.getElementById('search-produit').value
         // if (search.length === 0) {
-        //     setProduits(produitsDatas)
+        //     setProduits(data)
         // } else {
-        //     const newData = produitsDatas.filter((item) => { return item.design.toLowerCase().includes(search.toLowerCase())})
+        //     const newData = data.filter((item) => { return item.design.toLowerCase().includes(search.toLowerCase())})
         //     setProduits(newData)
         //     console.log(newData)
         // }
 
         // A Décommenter
-        // axios.get(url + `produitsRecherche/${search}`).then(function (response) {
+        // axios.get(url + `produit/produitsRecherche/${search}`).then(function (response) {
         //     setProduits(response.data)
         // }, function (error) {
         //     console.log(error)
@@ -314,8 +316,9 @@ export default function Accueil({ }) {
 
     // ------------ Tri ASC ----------
     const handleTriAZ = () => {
-        axios.get(url + 'produitsDesignAsc').then(function (response) {
+        axios.get(url + 'produit/produitsDesignAsc').then(function (response) {
             setProduits(response.data)
+            console.log(response.data)
         }, function (error) {
             console.log(error)
         })
@@ -323,7 +326,7 @@ export default function Accueil({ }) {
 
     // ------------ Tri DESC ----------
     const handleTriZA = () => {
-        axios.get(url + 'produitsDesignDesc').then(function (response) {
+        axios.get(url + 'produit/produitsDesignDesc').then(function (response) {
             setProduits(response.data)
         }, function (error) {
             console.log(error)
@@ -647,8 +650,10 @@ export default function Accueil({ }) {
                                             addData={() => addPanierData(val.idPro, 1)}
                                         />
                                     ))}
+
                                     <div style={{ width: '100%', height: '1px' }}></div>
-                                    {(totalPage !== 1) && <div id='page-card'>
+
+                                    {(totalPage > 1) && <div id='page-card'>
                                         <Stack spacing={4}>
                                             <Pagination count={totalPage} page={page} onChange={handlePageChange} variant="outlined" shape="rounded" sx={{ color: "white" }} />
                                         </Stack>
@@ -682,7 +687,7 @@ export default function Accueil({ }) {
                 <BoxProduit
                     close={closeBoxPro}
                     data={boxData}
-                    allProduit={produitsDatas}
+                    allProduit={data}
                     addPanierData={addPanierData}
                     idCli={idCli}
                 />

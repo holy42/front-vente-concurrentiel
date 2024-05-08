@@ -53,10 +53,12 @@ const AddCartButton = styled(Button)({
 });
 
 const MiniCard = ({ data, changeData }) => {
+    const src = `data:image/png;base64,${data.imgPro}`
+
     return (
         <>
             <div id='mini-card' onClick={() => changeData(data)}>
-                <img src={V17} alt="v" />
+                <img src={src} alt="v" />
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Stack spacing={1} >
                         <Rating name="half-rating-read" defaultValue={data.vote} precision={0.5} size="small" readOnly />
@@ -174,15 +176,17 @@ export default function BoxProduit({ close, data, addPanierData, allProduit, idC
         // })
     }
 
+    const src = `data:image/png;base64,${produit.imgPro}`
+
     return (
         <>
             <div id='body-box'>
-                <div id='box-container'>
+                <div id='box-container' style={{ height: (newData.length >= 1) ? '85vh' : '65vh', gridTemplateRows: (newData.length >= 1) ? '65% 35%' : '100%'}}>
                     <div id='box-produit'>
 
                         <div id='box-img'>
                             <div id='img-pro'>
-                                <img src={V17} alt="v" />
+                                <img src={src} alt="v" />
                             </div>
                         </div>
 

@@ -23,6 +23,7 @@ import AdminClient from './admin/adminClient'
 import AdminFournisseur from './admin/adminFournisseur'
 import AdminProduit from './admin/adminProduit'
 import AdminDashboard from './admin/adminDashboard'
+import AdminAchat from './admin/adminAchat'
 
 function Nav() {
   const action = () => {
@@ -44,6 +45,7 @@ function Nav() {
         <Route path="/admin/fournisseur" element={<AdminFournisseur />} />
         <Route path="/admin/produit" element={<AdminProduit />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/achat" element={<AdminAchat />} />
         <Route path="/facture" element={<Facture/>} />
 
         {/* <Route path="/modal" element={<Modals icon={<CancelIcon sx={{ color: '#ed1111', width: 60, height: 60}} />} color={'#ed1111'} para1={'Voulez-vous vraiment supprimer cet article ?'} para2={'Cette action est irreversible. '} button={'Supprimer'} />} /> */}

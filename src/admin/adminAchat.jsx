@@ -59,25 +59,24 @@ const EditButton = styled(Button)({
     },
 })
 
-export default function AdminProduit() {
-    const [produit, setProduit] = useState([])
+export default function AdminAchat() {
+    const [achat, setAchat] = useState([])
 
-    // ------ Get all produit -------
+    // ------ Get all achat -------
     useEffect(() => {
-        axios.get(url + 'produit/produitAccueil').then(function (response) {
-            setProduit(response.data)
+        axios.get(url + 'achat/achatDashboard').then(function (response) {
+            setAchat(response.data)
         }, function (error) {
             console.log(error)
         })
-    }, [produit])
+    }, [achat])
 
     const columns = [
-        { field: 'idPro', headerName: 'ID', headerClassName: 'super-app-theme--header', width: 70, headerAlign: 'center', },
         {
-            field: 'avatar',
-            headerName: 'Avatar',
+            field: 'client',
+            headerName: 'Client',
             headerClassName: 'super-app-theme--header',
-            width: 150,
+            width: 200,
             headerAlign: 'center',
             renderCell: (params) => {
                 const src = `data:image/png;base64,${params.value}`
@@ -89,41 +88,51 @@ export default function AdminProduit() {
                 )
             },
         },
-        { field: 'design', headerName: 'Désignation', headerClassName: 'super-app-theme--header', width: 200, headerAlign: 'center', },
         {
-            field: 'action',
-            headerName: 'Vote',
+            field: 'fournisseur',
+            headerName: 'Fournisseur',
             headerClassName: 'super-app-theme--header',
-            width: 150,
+            width: 200,
             headerAlign: 'center',
             renderCell: (params) => {
-                const row = params.value
+                const src = `data:image/png;base64,${params.value}`
                 return (
-                    <div style={{ display: 'grid', margin: 'auto',width: '100%', height: '100%', gridTemplateColumns: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                        <Stack spacing={1} sx={{ margin: 'auto' }}>
-                            <Rating name="half-rating-read" defaultValue={row} precision={0.5} readOnly size="small" />
-                        </Stack>
-                        {/* <Typography sx={{ color: 'rgb(130, 130, 130' }}>{data.vote}</Typography> */}
-
-                    </div>
+                    <IconButton sx={{ p: 0 }}>
+                        <Avatar src={src} />
+                    </IconButton>
+                    // <img src={src} style={{ width: '80%', height: '70%', margin: 'auto' }} />
                 )
             },
         },
-        { field: 'categorie', headerName: 'Catégorie', headerClassName: 'super-app-theme--header', width: 150, headerAlign: 'center', },
-        { field: 'prix', headerName: 'Prix', headerClassName: 'super-app-theme--header', width: 150, headerAlign: 'center', },
-        { field: 'qte', headerName: 'Stock', headerClassName: 'super-app-theme--header', width: 100, headerAlign: 'center', },
-        { field: 'dateAjout', headerName: `Date d'ajout`, headerClassName: 'super-app-theme--header', width: 200, headerAlign: 'center', },
+        {
+            field: 'produit',
+            headerName: 'Produit',
+            headerClassName: 'super-app-theme--header',
+            width: 200,
+            headerAlign: 'center',
+            renderCell: (params) => {
+                const src = `data:image/png;base64,${params.value}`
+                return (
+                    <IconButton sx={{ p: 0 }}>
+                        <Avatar src={src} />
+                    </IconButton>
+                    // <img src={src} style={{ width: '80%', height: '70%', margin: 'auto' }} />
+                )
+            },
+        },
+        { field: 'qteAchat', headerName: 'Quantité', headerClassName: 'super-app-theme--header', width: 200, headerAlign: 'center', },
+        { field: 'dateAchat', headerName: `Date d'achat`, headerClassName: 'super-app-theme--header', width: 200, headerAlign: 'center', },
     ]
 
-    const rowUpdate = produit.map(obj => {
-        return { ...obj, avatar: obj.imgPro, id: obj.idPro, action: obj.vote }
+    const rowUpdate = achat.map((obj, index) => {
+        return { ...obj, client: obj.imgCli, produit: obj.imgFr, fournisseur: obj.imgPro, id: index,}
     })
 
-    const rechercheProduit = () => {
-        const search = document.getElementById('search-produit').value
+    const rechercheAchat = () => {
+        const search = document.getElementById('search-achat').value
 
-        axios.get(url + `produit/produitAccueilRecherche/${search}`).then(function (response) {
-            setProduit(response.data)
+        axios.get(url + `achat/achatsRecherche/${search}`).then(function (response) {
+            setAchat(response.data)
         }, function (error) {
             console.log(error)
         })
@@ -151,21 +160,21 @@ export default function AdminProduit() {
                             </Link>
 
                             <Link id='link' to='/admin/fournisseur'>
-                                <div id='menu-button'>
+                                <div id='menu-button' >
                                     <FactoryOutlined id='menu-icon' sx={{ fontSize: 25, margin: 'auto' }} />
                                     <Typography id='menu-titre' sx={{ fontSize: 17, fontWeight: '500', }}>Fournisseur</Typography>
                                 </div>
                             </Link>
 
                             <Link id='link' to='/admin/produit'>
-                                <div id='menu-button' className='active'>
+                                <div id='menu-button'>
                                     <WidgetsOutlined id='menu-icon' sx={{ fontSize: 25, margin: 'auto' }} />
                                     <Typography id='menu-titre' sx={{ fontSize: 17, fontWeight: '500', }}>Produit</Typography>
                                 </div>
                             </Link>
 
                             <Link id='link' to='/admin/achat'>
-                                <div id='menu-button'>
+                                <div id='menu-button' className='active'>
                                     <ShoppingBagOutlined id='menu-icon' sx={{ fontSize: 25, margin: 'auto' }} />
                                     <Typography id='menu-titre' sx={{ fontSize: 17, fontWeight: '500', }}>Achat</Typography>
                                 </div>
@@ -191,19 +200,19 @@ export default function AdminProduit() {
 
                 <div id='admin-right'>
                     <div id='admin-header'>
-                        <Typography sx={{ fontSize: 25, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Produits</Typography>
+                        <Typography sx={{ fontSize: 25, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Achats</Typography>
                         <div id='container-search'>
-                            <div style={{ background: 'rgb(245 245 245)', height: '60%', borderRadius: '999px', padding: '2px 0px', display: 'flex', alignItems: 'center', width: "100%" }}>
+                            {/* <div style={{ background: 'rgb(245 245 245)', height: '60%', borderRadius: '999px', padding: '2px 0px', display: 'flex', alignItems: 'center', width: "100%" }}>
                                 <InputBase
                                     sx={{ ml: 1, flex: 1 }}
-                                    placeholder="Rechercher des produits"
+                                    placeholder="Rechercher des achats"
                                     inputProps={{ 'aria-label': 'recherche' }}
-                                    id='search-produit'
+                                    id='search-achat'
                                 />
-                                <IconButton onClick={rechercheProduit} type="button" sx={{ p: '10px', background: 'linear-gradient( #ed2645 ,#ff394b , #ff7f00 , #ffd400 )' }} aria-label="recherche">
+                                <IconButton onClick={rechercheAchat} type="button" sx={{ p: '10px', background: 'linear-gradient( #ed2645 ,#ff394b , #ff7f00 , #ffd400 )' }} aria-label="recherche">
                                     <Search sx={{ color: "white" }} />
                                 </IconButton>
-                            </div>
+                            </div> */}
                         </div>
                         <IconButton sx={{ p: 0, marginLeft: '20px' }}>
                             <Avatar src={pdp} />

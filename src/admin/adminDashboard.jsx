@@ -39,18 +39,19 @@ const StyledSelect = styled(Select)(({ theme }) => ({
 }))
 
 export default function AdminDashboard() {
-    // const [data, setData] = useState({})  // -------------- Décommenter
-    // const [rows, setRows] = useState({})
-    // const [datas, setDatas] = useState({}) 
+    // const [pro, setPro] = useState([])  // -------------- Décommenter
+    // const [rows, setRows] = useState([])
+    // const [datas, setDatas] = useState([]) 
     const [page, setPage] = useState(1)
     const [tri, setTri] = useState('')
     const [modal, setModal] = useState(false)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
     const [id, setId] = useState(null)
-    const [produit, setProduit] = useState({})
-    const [count, setCount] = useState({client: 0, fourni: 0, achat: 0, produit: 0})
+    const [produit, setProduit] = useState([])
+    const [count, setCount] = useState({ client: 0, fourni: 0, achat: 0, produit: 0 })
 
+    // ----------- fafana -------------
     const data = [
         { label: 'Group A', value: 2400 },
         { label: 'Group B', value: 4567 },
@@ -60,7 +61,7 @@ export default function AdminDashboard() {
         { label: 'Group F', value: 4800 },
     ]
 
-    const rowDatas = [
+    const rows = [
         { idPro: 1, design: 'Audi V08-A55', nomFr: 'Audi', idFr: 1, imgPro: V17 },
         { idPro: 2, design: 'Velo V08-A57', nomFr: 'Velo', idFr: 2, imgPro: V17 },
         { idPro: 3, design: 'BMW V14-B55', nomFr: 'BMW', idFr: 3, imgPro: V17 },
@@ -75,14 +76,16 @@ export default function AdminDashboard() {
 
     const categ = ['Voiture', 'Meuble', 'Chaussure', 'Téléphone']
 
+    // --------------------------------
+
     const pieParams = { height: 230, width: 400, margin: { right: 100 } }
 
     // --------- Pagination -----------
     const elemPage = 7
-    const totalPage = Math.ceil(rowDatas.length / elemPage)
+    const totalPage = Math.ceil(rows.length / elemPage)
     const start = (page - 1) * elemPage
     const end = start + elemPage
-    const dataPage = rowDatas.slice(start, end)
+    const dataPage = rows.slice(start, end)
 
     const nextPage = () => {
         setPage(prevPage => Math.min(prevPage + 1, totalPage))
@@ -105,8 +108,6 @@ export default function AdminDashboard() {
     //         console.log(error)
     //     })
     // }, [rows])
-
-    // const rowDatas = Object.entries(rows).map(([key, value]) => ({ index: key, ...value, }))
 
 
     // ------------ Logique pour retirer les produits ------------------
@@ -133,30 +134,32 @@ export default function AdminDashboard() {
 
     // ---------- décommenter -------------------
     // useEffect(() => {
-    //     axios.get(url + 'produits').then(function (response) {
+    //     axios.get(url + 'produit/produits').then(function (response) {
     //          setProduit(response.data)
     //     }, function (error) {
     //         console.log(error)
     //     })
     // }, [produit])
 
-    // const produitDatas = Object.entries(produit).map(([key, value]) => ({ index: key, ...value, }))
     // const categ = [...new Set(data.map(obj => obj.categorie))]
 
 
     // -------------- Logique pour récupérer les 6 produits les plus vendus par catégorie avec leur nombre -------------
     // useEffect(() => {
     //     axios.get(url+`produitsPlusVenduCateg/${tri}`).then(function (response) {
-    //         setData(response.data)
+    //         setPro(response.data)
     //     }, function (error) {
     //         console.log(error)
     //     })
-    // }, [data])
+    // }, [tri])
+    // const data = pro.map(item => {
+    //      return { label: item.design, value: item.nb}
+    // })
 
 
     // -------------- Logique pour les revenus des 6 derniers mois -----------------
     // useEffect(() => {
-    //     axios.get(url+`produitsPlusVenduCateg/${tri}`).then(function (response) {
+    //     axios.get(url+``).then(function (response) {
     //         setDatas(response.data)
     //     }, function (error) {
     //         console.log(error)
@@ -233,6 +236,13 @@ export default function AdminDashboard() {
                                 </div>
                             </Link>
 
+                            <Link id='link' to='/admin/achat'>
+                                <div id='menu-button'>
+                                    <ShoppingBagOutlined id='menu-icon' sx={{ fontSize: 25, margin: 'auto' }} />
+                                    <Typography id='menu-titre' sx={{ fontSize: 17, fontWeight: '500', }}>Achat</Typography>
+                                </div>
+                            </Link>
+
                             <Link id='link' to='/admin/dashboard'>
                                 <div id='menu-button' className='active' style={{ borderBottom: '2p x solid rgb (238, 238, 238)' }}>
                                     <LeaderboardOutlined id='menu-icon' sx={{ fontSize: 25, margin: 'auto' }} />
@@ -275,38 +285,47 @@ export default function AdminDashboard() {
 
                     <div id='admin-container-dash'>
                         <div id='admin-count'>
+
                             <div id='top-btn'>
-                                <div id='button-menu' className='activatedClient'>
-                                    <PersonOutlined sx={{ fontSize: 50, color: '#ffd400', marginLeft: '20%' }} />
-                                    <div style={{ float: 'right' }}>
-                                        <Typography sx={{ fontSize: 16, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Clients</Typography>
-                                        <Typography sx={{ fontSize: 22, fontWeight: '500', color: '#ffd400', marginLeft: '2%', }}>125</Typography>
+                                <Link to="admin/client">
+                                    <div id='button-menu' className='activatedClient'>
+                                        <PersonOutlined sx={{ fontSize: 50, color: '#ffd400', marginLeft: '20%' }} />
+                                        <div style={{ float: 'right' }}>
+                                            <Typography sx={{ fontSize: 16, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Clients</Typography>
+                                            <Typography sx={{ fontSize: 22, fontWeight: '500', color: '#ffd400', marginLeft: '2%', }}>{count.client}</Typography>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
 
-                                <div id='button-menu' className='activatedFournisseur'>
-                                    <FactoryOutlined sx={{ fontSize: 45, color: '#ed2645', marginLeft: '20%' }} />
-                                    <div>
-                                        <Typography sx={{ fontSize: 16, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Fournisseurs</Typography>
-                                        <Typography sx={{ fontSize: 22, fontWeight: '500', color: '#ed2645', marginLeft: '2%', }}>125</Typography>
+                                <Link to="admin/fournisseur">
+                                    <div id='button-menu' className='activatedFournisseur'>
+                                        <FactoryOutlined sx={{ fontSize: 45, color: '#ed2645', marginLeft: '20%' }} />
+                                        <div>
+                                            <Typography sx={{ fontSize: 16, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Fournisseurs</Typography>
+                                            <Typography sx={{ fontSize: 22, fontWeight: '500', color: '#ed2645', marginLeft: '2%', }}>{count.fourni}</Typography>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
 
-                                <div id='button-menu' className='activatedProduit'>
-                                    <WidgetsOutlined sx={{ fontSize: 45, color: '#ff7f00', marginLeft: '20%' }} />
-                                    <div>
-                                        <Typography sx={{ fontSize: 16, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Produits</Typography>
-                                        <Typography sx={{ fontSize: 22, fontWeight: '500', color: '#ff7f00', marginLeft: '2%', }}>125</Typography>
+                                <Link to="admin/produit">
+                                    <div id='button-menu' className='activatedProduit'>
+                                        <WidgetsOutlined sx={{ fontSize: 45, color: '#ff7f00', marginLeft: '20%' }} />
+                                        <div>
+                                            <Typography sx={{ fontSize: 16, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Produits</Typography>
+                                            <Typography sx={{ fontSize: 22, fontWeight: '500', color: '#ff7f00', marginLeft: '2%', }}>{count.produit}</Typography>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
 
-                                <div id='button-menu' className='activatedDashboard'>
-                                    <ShoppingBagOutlined sx={{ fontSize: 45, color: '#8311ed', marginLeft: '20%' }} />
-                                    <div>
-                                        <Typography sx={{ fontSize: 16, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Achat</Typography>
-                                        <Typography sx={{ fontSize: 22, fontWeight: '500', color: '#8311ed', marginLeft: '2%', }}>222</Typography>
+                                <Link to="admin/achat">
+                                    <div id='button-menu' className='activatedDashboard'>
+                                        <ShoppingBagOutlined sx={{ fontSize: 45, color: '#8311ed', marginLeft: '20%' }} />
+                                        <div>
+                                            <Typography sx={{ fontSize: 16, fontWeight: '500', color: 'rgb(100 100 100)', marginLeft: '2%', }}>Achat</Typography>
+                                            <Typography sx={{ fontSize: 22, fontWeight: '500', color: '#8311ed', marginLeft: '2%', }}>{count.achat}</Typography>
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         </div>
 
