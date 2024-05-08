@@ -125,7 +125,7 @@ export default function AdminAchat() {
     ]
 
     const rowUpdate = achat.map((obj, index) => {
-        return { ...obj, client: obj.imgCli, produit: obj.imgFr, fournisseur: obj.imgPro, id: index,}
+        return { ...obj, client: obj.imgCli, fournisseur: obj.imgFr, produit: obj.imgPro, id: index,}
     })
 
     const rechercheAchat = () => {
