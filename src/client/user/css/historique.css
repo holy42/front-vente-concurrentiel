@@ -147,7 +147,7 @@
     margin: auto;
     /* border: 1px solid indigo; */
     display: grid;
-    grid-template-rows: 10vh 120vh;
+    grid-template-rows: 5% 95%;
     overflow-x: hidden;
 }
 #historique-entete{
@@ -181,10 +181,11 @@ input[type=mounth]:focus{
     outline: #ff7f00;
 }
 #historique-tableau{
-    width: 95%;
+    width: 95% !important;
     height: 100%;
     border-radius: 10px;
     background-color: white;
+    margin-top: auto;
     margin: auto;
     /* border: 1px solid indigo; */
     display: grid;

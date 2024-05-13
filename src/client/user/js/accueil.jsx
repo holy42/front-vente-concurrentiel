@@ -5,13 +5,18 @@ import titre from '../image/titre2.png'
 import V17 from '../../voiture/V17.png'
 import pdp from '../image/pdp.jpg'
 import { Link, useLocation } from 'react-router-dom'
+
 import BoxProduit from './boxProduit'
 import Panier from './panier'
 import Snackbars from '../../../modal/snackbar'
 import Modals from '../../../modal/modal'
+import Facture from './facture'
 
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 import axios from 'axios'
-import { Search, ShoppingCartCheckout, AddShoppingCart, Warning, CheckCircle, Cancel, MoreVert } from '@mui/icons-material'
+
+import { Search, ShoppingCartCheckout, AddShoppingCart, Warning, CheckCircle, Cancel, MoreVert, Help } from '@mui/icons-material'
 import { styled } from '@mui/material/styles';
 import { Checkbox, Box, InputBase, IconButton, Badge, Avatar, Button, Rating, Pagination, } from '@mui/material'
 import { MenuItem, Menu, Typography, Tooltip, Select, FormControl, TextField, Stack, } from '@mui/material'
@@ -71,13 +76,16 @@ function CheckFilter({ value, change, checked }) {
 }
 
 function CardProduit({ show, addData, data }) {
-    const src = `data:image/png;base64,${data.imgPro}`
-
+    // console.log(typeof(data.imgPro))
+    const imageUrl = `data:image/png;base64,${data.imgPro}`
+    // const blob=data.imgPro.blob()
     return (
+
         <>
             <div id='card-pro' >
                 <div id='card-img' onClick={show}>
-                    <img src={src} alt="voiture" />
+
+                    <img src={imageUrl} alt="image Produit" />
                     {/* <Checkbox size='small' onChange={change} sx={{ color: "gray", position: 'absolute', top: 0, right: 0, '&.Mui-checked': { color: "#ff7f00" }, }} /> */}
                 </div>
                 <div id='card-nom' onClick={show}>
@@ -133,32 +141,32 @@ export default function Accueil({ }) {
     const [page, setPage] = useState(1)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
-
+    const [modal, setModal] = useState(false)
+    const [ok, setOk] = useState(false)
 
     // ------ Get all produit à décommenter ------
 
     const location = useLocation()
     const idCli = location.state?.id || 0
     useEffect(() => {
-        axios.get(url + 'produit/produits').then(function (response) {
-             setData(response.data)
+        axios.get("http://localhost:8080/produit/produitAccueil").then(function (response) {
+            setData(response.data)
         }, function (error) {
             console.log(error)
         })
     }, [])
-    // console.log(data)
 
-    // const data = Object.entries(data).map(([key, value]) => ({ index: key, ...value, }))
 
     useEffect(() => {
         setProduits(data)
+        console.log(produits)
     }, [data])
 
     useEffect(() => {
         const prixP = data.map(item => item.prix)
         let p = { min: Math.min(...prixP), max: Math.max(...prixP) }
         setPrix(p)
-    }, [])
+    }, [data])
 
     const categ = [...new Set(data.map(obj => obj.categorie))]
 
@@ -244,17 +252,16 @@ export default function Accueil({ }) {
         }
     }
 
-    const boxDisplay = (display, boite) => {
-        let data = showBox
-        data[boite] = display
-        setshowBox(data)
-    }
-
     // -------- Ouvre le box détail du produit --------
     const showBoxProduit = (val) => {
         // boxDisplay(true, 'boxPro')
         setBoxPro(true)
         setBoxData(val)
+        axios.put(`http://localhost:8080/produit/produitsNbClicPut/${val.nbClic + 1}/${val.idPro}`).then(function (response) {
+            // console.log(response.data)
+        }, function (error) {
+            console.log(error)
+        })
     }
 
     // -------- Ferme le box détail du produit ---------
@@ -272,8 +279,8 @@ export default function Accueil({ }) {
                 setAlertDoubleData(false)
             }, 5000)
         } else {
-            const data = produits.find(p => p.idPro === id)
-            const newData = { ...data }
+            const data2 = data.find(p => p.idPro === id)
+            const newData = { ...data2 }
             newData['count'] = nb
             // console.log(newData)
             setPanierData([...panierData, newData])
@@ -298,27 +305,21 @@ export default function Accueil({ }) {
     // ------- Recherche ----------
     const handleRecherche = () => {
         const search = document.getElementById('search-produit').value
-        // if (search.length === 0) {
-        //     setProduits(data)
-        // } else {
-        //     const newData = data.filter((item) => { return item.design.toLowerCase().includes(search.toLowerCase())})
-        //     setProduits(newData)
-        //     console.log(newData)
-        // }
 
         // A Décommenter
-        // axios.get(url + `produit/produitsRecherche/${search}`).then(function (response) {
-        //     setProduits(response.data)
-        // }, function (error) {
-        //     console.log(error)
-        // })
+        axios.get('http://localhost:8080/produit/produitAccueilRecherche/' + `${search}`).then(function (response) {
+            setProduits(response.data)
+            // setData(response.data)
+        }, function (error) {
+            console.log(error)
+        })
     }
 
     // ------------ Tri ASC ----------
     const handleTriAZ = () => {
-        axios.get(url + 'produit/produitsDesignAsc').then(function (response) {
+        axios.get('http://localhost:8080/produit/produitAccueilAsc').then(function (response) {
             setProduits(response.data)
-            console.log(response.data)
+            // setData(response.data)
         }, function (error) {
             console.log(error)
         })
@@ -326,7 +327,7 @@ export default function Accueil({ }) {
 
     // ------------ Tri DESC ----------
     const handleTriZA = () => {
-        axios.get(url + 'produit/produitsDesignDesc').then(function (response) {
+        axios.get('http://localhost:8080/produit/produitAccueilDesc').then(function (response) {
             setProduits(response.data)
         }, function (error) {
             console.log(error)
@@ -335,7 +336,7 @@ export default function Accueil({ }) {
 
     // ------------ Tri plus aimé ----------
     const handleTriAime = () => {
-        axios.get(url + 'produitPlusAime').then(function (response) {
+        axios.get('http://localhost:8080/produit/produitAccueilPlusAime').then(function (response) {
             setProduits(response.data)
         }, function (error) {
             console.log(error)
@@ -344,7 +345,7 @@ export default function Accueil({ }) {
 
     // ------------ Tri plus visité ----------
     const handleTriVisite = () => {
-        axios.get(url + 'produitsPlusVisite').then(function (response) {
+        axios.get('http://localhost:8080/produit/produitAccueilPlusVisite').then(function (response) {
             setProduits(response.data)
         }, function (error) {
             console.log(error)
@@ -353,7 +354,7 @@ export default function Accueil({ }) {
 
     // ------------ Tri plus achete ----------
     const handleTriAchat = () => {
-        axios.get(url + 'produitPlusVendu').then(function (response) {
+        axios.get('http://localhost:8080/produit/produitAccueilPlusAchete').then(function (response) {
             setProduits(response.data)
         }, function (error) {
             console.log(error)
@@ -362,7 +363,7 @@ export default function Accueil({ }) {
 
     // ------------ Tri plus recent ----------
     const handleTriRecent = () => {
-        axios.get(url + 'produitPlusRecent').then(function (response) {
+        axios.get('http://localhost:8080/produit/produitAccueilRecent').then(function (response) {
             setProduits(response.data)
         }, function (error) {
             console.log(error)
@@ -397,27 +398,52 @@ export default function Accueil({ }) {
             }
 
             // -------- à décommenter -----------
-            // axios.post(url + 'achatsPost', obj).then(function (response) {
-            //     setSuccess(true)
-            //     setTimeout(() => {
-            //         setSuccess(false)
-            //     }, 5000)
-            // }, function (error) {
-            //     setError(true)
-            //     setTimeout(() => {
-            //         setError(false)
-            //     }, 5000)
-            //     console.log(error)
-            // })
+            axios.post('http://localhost:8080/achat/achatsPost', obj).then(function (response) {
+                console.log(obj)
+                setSuccess(true)
+                setTimeout(() => {
+                    setSuccess(false)
+                }, 5000)
+            }, function (error) {
+                setError(true)
+                setTimeout(() => {
+                    setError(false)
+                }, 5000)
+                console.log(error)
+            })
         })
-        setPanierData([])
+        // setPanierData([])
         setBoxPanier(false)
+
+        
+        setTimeout(() => {
+            setModal(true)
+        }, 2000)
     }
 
     // -------- Annuler achat ---------
     const annulerAchat = () => {
         setPanierData([])
         setBoxPanier(false)
+    }
+
+    const closeFacture = () => {
+        setPanierData([])
+        setModal(false)   
+    }
+
+    const downloadFacture = () => {
+        const p = document.getElementById('facture-body')
+        html2canvas(p).then((canvas) => {
+            const img = canvas.toDataURL('img/png')
+            const doc = new jsPDF('p', 'mm', 'a4')
+            const width = doc.internal.pageSize.getWidth()
+            const height = doc.internal.pageSize.getHeight()
+            doc.addImage(img, 'PNG', 0, 0, width, height)
+            doc.save('facture.pdf')
+        })
+        setPanierData([])
+        setModal(false)
     }
 
     return (
@@ -556,9 +582,9 @@ export default function Accueil({ }) {
                                 </IconButton>
 
                                 <Link to={{
-                                        pathname: '/profil',
-                                        // state: {id: idCli} décommenter
-                                    }}>
+                                    pathname: '/profil',
+                                    // state: {id: idCli} décommenter
+                                }}>
                                     <IconButton sx={{ p: 0, marginLeft: '20px' }}>
                                         <Avatar src={pdp} />
                                     </IconButton>
@@ -650,10 +676,8 @@ export default function Accueil({ }) {
                                             addData={() => addPanierData(val.idPro, 1)}
                                         />
                                     ))}
-
                                     <div style={{ width: '100%', height: '1px' }}></div>
-
-                                    {(totalPage > 1) && <div id='page-card'>
+                                    {(totalPage !== 1) && <div id='page-card'>
                                         <Stack spacing={4}>
                                             <Pagination count={totalPage} page={page} onChange={handlePageChange} variant="outlined" shape="rounded" sx={{ color: "white" }} />
                                         </Stack>
@@ -680,6 +704,15 @@ export default function Accueil({ }) {
                         color={"#ed1111"}
                     />
                 }
+                {modal && <Modals
+                    icon={<Help sx={{ color: '#ed1111', width: 60, height: 60 }} />}
+                    color={'#ed1111'}
+                    para1={`Voulez-vous télécharger votre facture?`}
+                    para2={'Votre facture sera perdue si vous annuler'}
+                    button={'Télécharger'}
+                    close={closeFacture}
+                    action={downloadFacture}
+                />}
 
             </div>
 
@@ -707,11 +740,12 @@ export default function Accueil({ }) {
             {alertDoubleData &&
                 <Snackbars
                     icon={<Warning fontSize="inherit"
-                    sx={{ color: '#f89a0c' }} />}
+                        sx={{ color: '#f89a0c' }} />}
                     para={'Vous avez déja selectionné ce produit'}
                     color={"#f89a0c"}
                 />
             }
+            {ok && <Facture data={panierData} />}
         </>
     )
 }

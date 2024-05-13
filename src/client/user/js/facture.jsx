@@ -4,7 +4,10 @@ import logo from './logo.png'
 import titre from './titre.png'
 import { Typography } from '@mui/material'
 
-export default function Facture() {
+export default function Facture({ data }) {
+    const total = data.reduce((acc, item) => {
+        return acc + (item.prix * item.count)
+    }, 0)
     return (
         <>
             <div id='facture-body'>
@@ -44,40 +47,43 @@ export default function Facture() {
                                     <Typography sx={{ fontSize: 18, fontWeight: '600', color: 'rgb(38 38 38)' }}>Désignation</Typography>
                                 </th>
                                 <th>
-                                    <Typography sx={{ fontSize: 18, fontWeight: '600', color: 'rgb(38 38 38)' }}>Fournisseur</Typography>
+                                    <Typography sx={{ fontSize: 18, fontWeight: '600', color: 'rgb(38 38 38)' }}>Quantité</Typography>
                                 </th>
                                 <th>
                                     <Typography sx={{ fontSize: 18, fontWeight: '600', color: 'rgb(38 38 38)' }}>Prix unitaire</Typography>
                                 </th>
                                 <th>
-                                    <Typography sx={{ fontSize: 18, fontWeight: '600', color: 'rgb(38 38 38)' }}>Quantité</Typography>
+                                    <Typography sx={{ fontSize: 18, fontWeight: '600', color: 'rgb(38 38 38)' }}>Prix total</Typography>
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>
-                                    <Typography sx={{ fontSize: 18, fontWeight: '500', color: 'rgb(38 38 38)' }}>11 </Typography>
-                                </td>
-                                <td>
-                                    <Typography sx={{ fontSize: 18, fontWeight: '500', color: 'rgb(38 38 38)' }}>11 </Typography>
-                                </td>
-                                <td>
-                                    <Typography sx={{ fontSize: 18, fontWeight: '500', color: 'rgb(38 38 38)' }}>11 </Typography>
-                                </td>
-                                <td>
-                                    <Typography sx={{ fontSize: 18, fontWeight: '500', color: 'rgb(38 38 38)' }}>11 </Typography>
-                                </td>
-                            </tr>
+                            {data.map((item, index) => {
+                                return (
+                                    <tr>
+                                        <td>
+                                            <Typography sx={{ fontSize: 18, fontWeight: '500', color: 'rgb(38 38 38)' }}>{item.design}</Typography>
+                                        </td>
+                                        <td>
+                                            <Typography sx={{ fontSize: 18, fontWeight: '500', color: 'rgb(38 38 38)' }}>{item.count}</Typography>
+                                        </td>
+                                        <td>
+                                            <Typography sx={{ fontSize: 18, fontWeight: '500', color: 'rgb(38 38 38)' }}>{item.prix}</Typography>
+                                        </td>
+                                        <td>
+                                            <Typography sx={{ fontSize: 18, fontWeight: '500', color: 'rgb(38 38 38)' }}>{item.count * item.prix}</Typography>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                     </table>
 
                     <div id='facture-footer'>
                         <Typography sx={{ fontSize: 18, fontWeight: '500', color: 'rgb(38 38 38)', marginRight: '7px' }}>Total : </Typography>
-                        <Typography sx={{ fontSize: 22, fontWeight: '600', color: 'rgb(38 38 38)' }}> Ar 11 </Typography>
+                        <Typography sx={{ fontSize: 22, fontWeight: '600', color: 'rgb(38 38 38)' }}> Ar {total} </Typography>
                     </div>
-
 
                 </div>
             </div>

@@ -61,14 +61,13 @@ const CardPanier = ({ data, remove, sommePrix, updatePanier }) => {
         }
     }
 
-    const src = `data:image/png;base64,${data.imgPro}`
 
     return (
         <>
             <div id='panier-card'>
                 <div id="panier-left">
                     <div id="panier-img">
-                        <img src={src} alt="voiture" />
+                        <img src={V17} alt="voiture" />
                     </div>
 
                     <div id='panier-qte'>
@@ -102,7 +101,7 @@ const CardPanier = ({ data, remove, sommePrix, updatePanier }) => {
                         </IconButton>
                     </div>
                     <div id='panier-nom'>
-                        <Typography sx={{ fontSize: 18, border: '1px solid', textOverflow: 'ellipsis', fontWeight: '600', color: 'rgb(38 38 38)', marginLeft: '10px', marginTop: '2%', width: '80%' }}>{data.design}</Typography>
+                        <Typography sx={{ fontSize: 18, fontWeight: '600', color: 'rgb(38 38 38)', marginLeft: '10px', marginTop: '1%' }}>{data.design}</Typography>
                     </div>
 
                     {/* <div id='panier-btn'>

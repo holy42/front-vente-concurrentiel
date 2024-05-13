@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState,useEffect } from 'react'
 import "../css/activite.css"
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../image/logo2.png'
@@ -6,6 +6,8 @@ import titre from '../image/titre2.png'
 import V17 from '../../voiture/V17.png'
 import pdp from '../image/pdp.jpg'
 import axios from 'axios'
+import Modals from '../../../modal/modal'
+import Snackbars from '../../../modal/snackbar'
 
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
@@ -13,6 +15,7 @@ import HistoryIcon from '@mui/icons-material/History'
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
 import LogoutIcon from '@mui/icons-material/Logout'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import { CheckCircle, Cancel, Help } from "@mui/icons-material"
 
 import { styled } from '@mui/material/styles'
 import { DataGrid, gridClasses } from '@mui/x-data-grid'
@@ -21,26 +24,40 @@ import { Switch, Typography, IconButton, FormControlLabel, Avatar, Button } from
 const url = 'http://localhost:8080/'
 
 export default function Activite() {
-    const [loading, setLoading] = useState(true)
+    const [input,setInput]=useState([])
+    const [loading, setLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState(false)
+    // const [data, setData] = useState([]) 
 
     // ou get client via bdd (plus pratique)
-    // const location = useLocation()
-    // const idCli = location.state.id
-    //     useEffect(() => {
-    //     axios.get(url+ `getUnClient/${idCli}`).then(function (response){
-    //         setInput(response.data)
-    //     }, function (error) {
-    //         console.log(error)
-    //     })
-    // }, [input])
+    const location = useLocation()
+    const idCli = location.state?.id || 4
+        useEffect(() => {
+        axios.get('http://localhost:8080/client/'+ `clients/${idCli}`).then(function (response){
+            setInput(response.data)
+        }, function (error) {
+            console.log(error)
+        })
+    }, [input])
+
+    
+    
 
     const envoyerMail = () => {
         const texte = document.getElementById('text-mail').innerHTML
         // ------- Changer acces client
-        axios.put(url + `clientsAccesPut/${loading}/${idCli}`).then(function (response) {
-            console.log(response.data)
-        }, function (error) {
-            console.log(error)
+        axios.put('http://localhost:8080/client/' + `clientsAccesPut/${loading}/${idCli}`).then(function (response) {
+            setSuccess(true)
+                setTimeout(() => {
+                    setSuccess(false)
+                }, 5000)
+            }, function (error) {
+                setError(true)
+                setTimeout(() => {
+                    setError(false)
+                }, 5000)
+                console.log(error)
         })
 
         // ---- logique envoi mail ----
@@ -62,7 +79,7 @@ export default function Activite() {
 
                             <Link id='link' to={{
                                         pathname: '/accueil',
-                                        // state: {id: idCli} décommenter
+                                        state: {id: idCli} 
                                     }}>
                                 <div id='nav-button'>
                                     <HomeOutlinedIcon sx={{ fontSize: 25, margin: 'auto' }} />
@@ -72,7 +89,7 @@ export default function Activite() {
 
                             <Link id='link' to={{
                                         pathname: '/profil',
-                                        // state: {id: idCli} décommenter
+                                        state: {id: idCli} 
                                     }}>
                                 <div id='nav-button'>
                                     <PersonOutlineIcon sx={{ fontSize: 25, margin: 'auto' }} />
@@ -82,7 +99,7 @@ export default function Activite() {
 
                             <Link id='link' to={{
                                         pathname: '/historique',
-                                        // state: {id: idCli} décommenter
+                                        state: {id: idCli} 
                                     }}>
                                 <div id='nav-button'>
                                     <HistoryIcon sx={{ fontSize: 25, margin: 'auto' }} />
@@ -92,7 +109,7 @@ export default function Activite() {
 
                             <Link id='link' to={{
                                         pathname: '/activite',
-                                        // state: {id: idCli} décommenter
+                                        state: {id: idCli} 
                                     }}>
                                 <div id='nav-button' className='active' style={{ borderBottom: '2p x solid rgb (238, 238, 238)' }}>
                                     <ReportProblemOutlinedIcon sx={{ fontSize: 25, margin: 'auto' }} />
@@ -168,6 +185,21 @@ export default function Activite() {
                     </div>
                 </div>
             </div >
+
+            {success &&
+                <Snackbars
+                    icon={<CheckCircle fontSize="inherit" sx={{ color: '#24cf0e' }} />}
+                    para={"L'email a été envoyé avec succès"}
+                    color={"#24cf0e"}
+                />
+            }
+            {error &&
+                <Snackbars
+                    icon={<Cancel fontSize="inherit" sx={{ color: '#ed1111' }} />}
+                    para={"un problème est survenu lors de l'envoi"}
+                    color={"#ed1111"}
+                />
+            }
         </>
     )
 }

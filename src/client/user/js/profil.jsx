@@ -23,14 +23,22 @@ const url = 'http://localhost:8080/'
 export default function Profil({ }) {
     const [showPassword, setShowPassword] = useState(false)
     const [input, setInput] = useState({
-        idCli: 1,
-        imgCli: pdp,
-        pseudo: 'Holy',
-        adresse: 'BP 122 Fianarantsoa',
-        mailCli: 'holymanarivo@gmail.com',
-        contact: '0344643461',
-        mdpCli: '1234'
+        // idCli: 1,
+        // imgCli: pdp,
+        // pseudo: 'Holy',
+        // adresse: 'BP 122 Fianarantsoa',
+        // mailCli: 'holymanarivo@gmail.com',
+        // contact: '0344643461',
+        // mdpCli: '1234'
+        idCli: null,
+        imgCli: '',
+        pseudo: '',
+        adresse: '',
+        mailCli: '',
+        contact: '',
+        mdpCli: ''
     })
+    const [data, setData] = useState([])
     const [modal, setModal] = useState(false)
     const [suppression, setSuppression] = useState(false)
     const [success, setSuccess] = useState(false)
@@ -42,14 +50,21 @@ export default function Profil({ }) {
     // ou get client via bdd (plus pratique)
     // const location = useLocation()
     // const idCli = location.state.id
-    //     useEffect(() => {
-    //     axios.get(url+ `getUnClient/${idCli}`).then(function (response){
-    //         setInput(response.data)
-    //     }, function (error) {
-    //         console.log(error)
-    //     })
-    // }, [input])
+    useEffect(() => {
+        // axios.get('http://localhost:8080/client/clients/'+ `${idCli}`).then(function (response){
+            axios.get('http://localhost:8080/client/clients/4').then(function (response){
+            setData(response.data)
+        }, function (error) {
+            console.log(error)
+        })
+    }, [])
 
+    useEffect(() => {
+        data.map(item => {
+            const imageUrl=`data:image/png;base64,${item.imgCli}`
+            setInput({...item, imgCli: imageUrl})
+        })
+    }, [data])
     const handleClickShowPassword = () => setShowPassword((show) => !show)
 
     const handleMouseDownPassword = (event) => {
@@ -62,22 +77,38 @@ export default function Profil({ }) {
 
     // -------------- Modifier client ----------------
     const editClient = () => {
-        axios.put(url + 'clientsPut', input).then(function (response) {
+        const formData = new FormData()
+        formData.append('imgCli', input.imgCli)
+        const img = data.map(item => { 
+            const imageUrl=`data:image/png;base64,${item.imgCli}`
+            return imageUrl 
+        })
+        const { imgCli,role, ...rest} = input
+        axios.put(url + 'client/clientsPut', rest).then(function (response) {
             setSuccess(true)
             setTimeout(() => {
                 setSuccess(false)
             }, 5000)
         }, function (error) {
+            console.log(error)
             setError(true)
             setTimeout(() => {
                 setError(false)
             }, 5000)
         })
+        if(input.imgCli !== img){
+            axios.put(url + `client/clientsImgPut/${input.idCli}`, formData, { headers: {'content-Type': 'multipart/form-data'} }).then(function (response) {
+                console.log(response.data)
+            }, function (error) {
+                console.log(error)
+            })
+        }
+        
     }
 
     // --------------- Supprimer client -------------
     const suppClient = () => {
-        axios.delete(url + `clientsDelete/${input.idCli}`).then(function (response) {
+        axios.delete(url + `client/clientsDelete/${input.idCli}`).then(function (response) {
             history('/login')
         }, function (error) {
             setError(true)

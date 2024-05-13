@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import "../css/historique.css"
 import { Link, useLocation } from 'react-router-dom'
 import logo from '../image/logo2.png'
@@ -17,7 +17,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { styled } from '@mui/material/styles'
 import { DataGrid, gridClasses, GridToolbar, GridToolbarExport } from '@mui/x-data-grid'
 import { frFR } from '@mui/x-data-grid/locales'
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, Avatar, IconButton } from '@mui/material'
 import axios from 'axios'
 
 const url = 'http://localhost:8080/'
@@ -47,31 +47,59 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 }))
 
 export default function Historique() {
-    // const [data, setData] = useState({})
-
-    const rows = [
-        { id: 1, Produit: 'Audi V08-A55', Compagnie: 'Audi', Prix: '10000000', Quantité: '4', Date: '11/04/2024' },
-        { id: 2, Produit: 'Velo V08-A57', Compagnie: 'Velo', Prix: '1500000', Quantité: '2', Date: '11/04/2024' },
-        { id: 3, Produit: 'BMW V14-B55', Compagnie: 'BMW', Prix: '1400000', Quantité: '1', Date: '11/04/2024' },
-        { id: 4, Produit: 'Samsung Galaxy', Compagnie: 'Samsung', Prix: '200000', Quantité: '2', Date: '11/04/2024' },
-        { id: 5, Produit: 'Table 16*16', Compagnie: 'Table', Prix: '107000', Quantité: '1', Date: '11/04/2024' },
-        { id: 6, Produit: 'Cable USB', Compagnie: 'MSV', Prix: '30000', Quantité: '3', Date: '11/04/2024' },
-    ]
+    const [data, setData] = useState([])
+    // const rows=[]
+    const dataWithKeys = data.map((item, index) => ({ ...item, key: index }));
+    // const rows = [
+    //     { id: 1, Produit: 'Audi V08-A55', Compagnie: 'Audi', Prix: '10000000', Quantité: '4', Date: '11/04/2024' },
+    //     { id: 2, Produit: 'Velo V08-A57', Compagnie: 'Velo', Prix: '1500000', Quantité: '2', Date: '11/04/2024' },
+    //     { id: 3, Produit: 'BMW V14-B55', Compagnie: 'BMW', Prix: '1400000', Quantité: '1', Date: '11/04/2024' },
+    //     { id: 4, Produit: 'Samsung Galaxy', Compagnie: 'Samsung', Prix: '200000', Quantité: '2', Date: '11/04/2024' },
+    //     { id: 5, Produit: 'Table 16*16', Compagnie: 'Table', Prix: '107000', Quantité: '1', Date: '11/04/2024' },
+    //     { id: 6, Produit: 'Cable USB', Compagnie: 'MSV', Prix: '30000', Quantité: '3', Date: '11/04/2024' },
+    // ]
 
 
     // ou get client via bdd (plus pratique)
-    // const location = useLocation()
-    // const idCli = location.state.id
+    const location = useLocation()
+    const idCli = location.state?.id || 4
 
-    // useEffect(() => {
-    //     axios.get(url + `achatsParClient/${idCli}`).then(function (response) {
-    //         setData(response.data)
-    //     }, function (error) {
-    //         console.log(error)
-    //     })
-    // }, [data])
+    useEffect(() => {
+        axios.get('http://localhost:8080/historique/historique/'+ `${idCli}`).then(function (response) {
+            setData(response.data)
+            // console.log(response.data)
+        }, function (error) {
+            console.log(error)
+        })
+    }, [data])
+    // console.log(dataWithKeys)
+
+    const columns = [
+        {
+            field: 'img',
+            headerName: 'Produit',
+            headerClassName: 'super-app-theme--header',
+            width: 150,
+            headerAlign: 'center',
+            renderCell: (params) => {
+                const src = `data:image/png;base64,${params.value}`
+                return (
+                    <IconButton sx={{ p: 0 }}>
+                        <Avatar src={src} />
+                    </IconButton>
+                    // <img src={src} style={{ width: '80%', height: '70%', margin: 'auto' }} />
+                )
+            },
+        },
+        { field: 'produit', headerName: 'Designation', headerClassName: 'super-app-theme--header', width: 150, headerAlign: 'center', },
+        { field: 'compagnie', headerName: 'Fournisseur', headerClassName: 'super-app-theme--header', width: 200, headerAlign: 'center', },
+        { field: 'prix', headerName: 'Prix unitaire', headerClassName: 'super-app-theme--header', width: 200, headerAlign: 'center', },
+        { field: 'quantite', headerName: 'Quantité', headerClassName: 'super-app-theme--header', width: 100, headerAlign: 'center', },
+        { field: 'date', headerName: `Date d'achat`, headerClassName: 'super-app-theme--header', width: 200, headerAlign: 'center', },
+    ]
 
     return (
+        
         <>
             <div id='historique-body'>
                 <div id='historique-left'>
@@ -87,7 +115,7 @@ export default function Historique() {
 
                             <Link id='link' to={{
                                         pathname: '/accueil',
-                                        // state: {id: idCli} décommenter
+                                        state: {id: idCli} 
                                     }}>
                                 <div id='nav-button'>
                                     <HomeOutlinedIcon sx={{ fontSize: 25, margin: 'auto' }} />
@@ -97,7 +125,7 @@ export default function Historique() {
 
                             <Link id='link' to={{
                                 pathname: '/profil',
-                                // state: {id: idCli} décommenter
+                                state: {id: idCli} 
                             }}>
                                 <div id='nav-button'>
                                     <PersonOutlineIcon sx={{ fontSize: 25, margin: 'auto' }} />
@@ -107,7 +135,7 @@ export default function Historique() {
 
                             <Link id='link' to={{
                                         pathname: '/historique',
-                                        // state: {id: idCli} décommenter
+                                        state: {id: idCli} 
                                     }}>
                                 <div id='nav-button' className='active'>
                                     <HistoryIcon sx={{ fontSize: 25, margin: 'auto' }} />
@@ -117,7 +145,7 @@ export default function Historique() {
 
                             <Link id='link' to={{
                                         pathname: '/activite',
-                                        // state: {id: idCli} décommenter
+                                        state: {id: idCli} 
                                     }}>
                                 <div id='nav-button' style={{ borderBottom: '2p x solid rgb (238, 238, 238)' }}>
                                     <ReportProblemOutlinedIcon sx={{ fontSize: 25, margin: 'auto' }} />
@@ -151,23 +179,18 @@ export default function Historique() {
                     </div>
                     <div id='historique-box'>
                         <div id='historique-entete'>
-                            <div id='date-achat'>
+                            {/* <div id='date-achat'>
                                 <input type="month" name="avant" id="avant" />
                                 <span>-</span>
                                 <input type="month" name="apres" id="apres" />
-                            </div>
+                            </div> */}
                         </div>
 
                         <Box id='historique-tableau' sx={{ '& .super-app-theme--header': { color: '#ff7f00', fontSize: 17 } }}>
                             <StripedDataGrid
-                                columns={[
-                                    { field: 'Produit', headerClassName: 'super-app-theme--header', width: 200, },
-                                    { field: 'Compagnie', headerClassName: 'super-app-theme--header', width: 200 },
-                                    { field: 'Prix', headerClassName: 'super-app-theme--header', width: 200 },
-                                    { field: 'Quantité', headerClassName: 'super-app-theme--header', width: 200 },
-                                    { field: 'Date', headerClassName: 'super-app-theme--header', width: 200 }
-                                ]}
-                                rows={rows}
+                                columns={columns}
+                                rows={dataWithKeys}
+                                getRowId={(row) => row.key}
                                 getRowClassName={(params) =>
                                     params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
                                 }
@@ -180,7 +203,14 @@ export default function Historique() {
                                 }}
                                 localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                                 slots={{ toolbar: GridToolbar }}
-                            // slotProps={{ toolbar: { printOptions: { hideFooter: true, hideToolbar: true } } }}
+                                sx={{
+                                    '& .MuiDataGrid-cell': {
+                                        textAlign: 'center',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center'
+                                    }
+                                }}
                             />
                         </Box>
                     </div>

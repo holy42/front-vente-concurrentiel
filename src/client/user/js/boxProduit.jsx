@@ -53,12 +53,11 @@ const AddCartButton = styled(Button)({
 });
 
 const MiniCard = ({ data, changeData }) => {
-    const src = `data:image/png;base64,${data.imgPro}`
-
+    const imageUrl=`data:image/png;base64,${data.imgPro}`
     return (
         <>
             <div id='mini-card' onClick={() => changeData(data)}>
-                <img src={src} alt="v" />
+                <img src={imageUrl} alt="v" />
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                     <Stack spacing={1} >
                         <Rating name="half-rating-read" defaultValue={data.vote} precision={0.5} size="small" readOnly />
@@ -83,24 +82,24 @@ export default function BoxProduit({ close, data, addPanierData, allProduit, idC
     const [produit, setProduit] = useState(data)
     const [rate, setRate] = useState(data.vote)
 
-    const produitData = [
-        { id: 1, idCli: 1, vote: 4.5, pseudo: 'Holy M.', dateAvis: '10/02/2024', commentaire: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit' },
-        { id: 2, idCli: 2, vote: 4.5, pseudo: 'Holy M.', dateAvis: '10/02/2024', commentaire: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit' },
-        { id: 3, idCli: 3, vote: 4.5, pseudo: 'Holy M.', dateAvis: '10/02/2024', commentaire: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit' },
-        { id: 4, idCli: 4, vote: 4.5, pseudo: 'Holy M.', dateAvis: '10/02/2024', commentaire: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit' }
-    ]
+    // const produitData = [
+    //     { id: 1, idCli: 1, vote: 4.5, pseudo: 'Holy M.', dateAvis: '10/02/2024', commentaire: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit' },
+    //     { id: 2, idCli: 2, vote: 4.5, pseudo: 'Holy M.', dateAvis: '10/02/2024', commentaire: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit' },
+    //     { id: 3, idCli: 3, vote: 4.5, pseudo: 'Holy M.', dateAvis: '10/02/2024', commentaire: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit' },
+    //     { id: 4, idCli: 4, vote: 4.5, pseudo: 'Holy M.', dateAvis: '10/02/2024', commentaire: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae velit sed eros feugiat elit' }
+    // ]
 
     const newData = allProduit.filter((item) => { return item.design.includes(produit.design) && item.idFr !== produit.idFr })
 
     // --------- Get Avis par produit à décommenter ---------
-    // useEffect(() => {
-    //     axios.get(url + '').then(function (response){
-    //         setProduitAvis(response.data)
-    //     }, function (error){
-    //         console.log(error)
-    //     })
-    // }, [produit])
-    //     const produitData = Object.entries(produitAvis).map(([key, value]) => ({ index: key, ...value, }))
+    useEffect(() => {
+        axios.get('http://localhost:8080/avis/avisPseudo/'+`${data.idPro}`).then(function (response){
+            setProduitAvis(response.data)
+        }, function (error){
+            console.log(error)
+        })
+    }, [produit])
+        const produitData = Object.entries(produitAvis).map(([key, value]) => ({ index: key, ...value, }))
 
     const changeData = (obj) => {
         setProduit(obj)
@@ -162,31 +161,30 @@ export default function BoxProduit({ close, data, addPanierData, allProduit, idC
         }
 
         // -------- à décommenter -----------
-        // axios.post(url + 'achatsPost', obj).then(function (response) {
-        //     setSuccess(true)
-        //     setTimeout(() => {
-        //         setSuccess(false)
-        //     }, 5000)
-        // }, function (error) {
-        //     setError(true)
-        //     setTimeout(() => {
-        //         setError(false)
-        //     }, 5000)
-        //     console.log(error)
-        // })
+        axios.post('http://localhost:8080/achat/'+ 'achatsPost', obj).then(function (response) {
+            setSuccess(true)
+            setTimeout(() => {
+                setSuccess(false)
+            }, 5000)
+        }, function (error) {
+            setError(true)
+            setTimeout(() => {
+                setError(false)
+            }, 5000)
+            console.log(error)
+        })
     }
-
-    const src = `data:image/png;base64,${produit.imgPro}`
-
+  const imgUrl=`data:image/png;base64,${data.imgPro}`
     return (
+        
         <>
             <div id='body-box'>
-                <div id='box-container' style={{ height: (newData.length >= 1) ? '85vh' : '65vh', gridTemplateRows: (newData.length >= 1) ? '65% 35%' : '100%'}}>
+                <div id='box-container'>
                     <div id='box-produit'>
 
                         <div id='box-img'>
                             <div id='img-pro'>
-                                <img src={src} alt="v" />
+                                <img src={imgUrl} alt="v" />
                             </div>
                         </div>
 

@@ -1,8 +1,9 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import '../css/avis.css'
 import pdp from '../image/pdp.jpg'
 import Modals from '../../../modal/modal'
 import Snackbars from '../../../modal/snackbar'
+import axios from 'axios'
 
 import { Stack, Rating, Avatar, Typography, Button, IconButton } from '@mui/material'
 import { styled } from '@mui/material/styles';
@@ -85,18 +86,18 @@ export default function Avis({ datacoms, close, idCli, idPro }) {
         }
 
         // ----------- à décommenter -----------
-        // axios.post(url + 'avisPost', obj).then(function (response) {
-        //     setSuccess(true)
-        //     setTimeout(() => {
-        //         setSuccess(false)
-        //     }, 5000)
-        // }, function (error) {
-        //     setError(true)
-        //     setTimeout(() => {
-        //         setError(false)
-        //     }, 5000)
-        //     console.log(error)
-        // })
+        axios.post('http://localhost:8080/avis/' + 'avisPost', obj).then(function (response) {
+            setSuccess(true)
+            setTimeout(() => {
+                setSuccess(false)
+            }, 5000)
+        }, function (error) {
+            setError(true)
+            setTimeout(() => {
+                setError(false)
+            }, 5000)
+            console.log(error)
+        })
         document.getElementById('text-com').innerHTML = ''
         setRate(0)    
 
@@ -130,25 +131,25 @@ export default function Avis({ datacoms, close, idCli, idPro }) {
         }
 
         // ----------- à décommenter -----------
-        // axios.put(url + 'avisPut', obj).then(function (response) {
-        //     setSuccess(true)
-        //     setTimeout(() => {
-        //         setSuccess(false)
-        //     }, 5000)
-        // }, function (error) {
-        //     setError(true)
-        //     setTimeout(() => {
-        //         setError(false)
-        //     }, 5000)
-        //     console.log(error)
-        // })
+        axios.put('http://localhost:8080/avis/' + 'avisPut', obj).then(function (response) {
+            setSuccess(true)
+            setTimeout(() => {
+                setSuccess(false)
+            }, 5000)
+        }, function (error) {
+            setError(true)
+            setTimeout(() => {
+                setError(false)
+            }, 5000)
+            console.log(error)
+        })
         document.getElementById('text-com').innerHTML = ''
         setRate(0)
     }
 
     // ------- Supprimer avis ---------
     const deleteAvis = () => {
-        axios.delete(url + `avisDelete/${idCli}/${idPro}`).then(function (response) {
+        axios.delete('http://localhost:8080/avis/' + `avisDelete/${idCli}/${idPro}`).then(function (response) {
             console.log(response.data)
         }, function(error) {
             console.log(error)
